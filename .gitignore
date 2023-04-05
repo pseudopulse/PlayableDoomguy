@@ -1,4 +1,4 @@
 # libs and build directories
-ModName/libs
-ModName/bin
-ModName/obj
+PlayableDoomguy/libs
+PlayableDoomguy/bin
+PlayableDoomguy/obj
