@@ -14,3 +14,6 @@ global using PlayableDoomguy.Utils;
 global using System.Linq;
 global using R2API;
 global using UnityEngine.Networking;
+global using PlayableDoomguy.Components;
+global using PlayableDoomguy.Weapons;
+global using UnityEngine.UI;

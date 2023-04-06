@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3300699689
+CRC: 1013311160
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 763abc54741b1c318238376cf55ddb63
+    Hash: cf76b26b44eb6b8ffec371463b6ce7f4
   TypeTreeHash:
     serializedVersion: 2
-    Hash: cbb90e939189d417d662e5b6391fb2ca
+    Hash: 7ad962c2aeebae7480b22fd8ba638158
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -30,11 +30,21 @@ ClassTypes:
 - Class: 65
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 1790887305, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 678291247, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
   Script: {fileID: 372142912, guid: d382a022563c7517aadbc92ca1060016, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
   Script: {fileID: -1067940895, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -197296741, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 953270592, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1277448904, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -52,6 +62,10 @@ ClassTypes:
 - Class: 114
   Script: {fileID: -365436499, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
+  Script: {fileID: 1783796254, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -1294804675, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
   Script: {fileID: -202159943, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1792105662, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
@@ -68,6 +82,12 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 1918207524, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
+  Script: {fileID: -1848696948, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -317677761, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -1819008361, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
   Script: {fileID: -789927658, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: 1391837873, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
@@ -80,15 +100,78 @@ ClassTypes:
 - Class: 114
   Script: {fileID: -315171339, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
+  Script: {fileID: -1895344032, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
   Script: {fileID: -1568778350, guid: 050936fea8909af15a3fd3b64da1ff83, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 136
   Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
 - Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Doomguy/Weapons/Shotgun/sfShotgun.asset
+- Assets/Projectiles/Plasma/PLSSB0.png
+- Assets/Weapons/Sprites/Shotgun/SSGReload3.png
+- Assets/Weapons/Sprites/Plasma/PlasmaReload.png
+- Assets/Weapons/HUD/STFace/STFBL.png
+- Assets/Weapons/Sprites/Chaingun/ChaingunFlash2.png
+- Assets/Doomguy/Weapons/Plasma/sfPlasma.asset
+- Assets/Weapons/Sprites/Chaingun/ChaingunFire.png
+- Assets/Weapons/HUD/WeaponDisplay.prefab
+- Assets/Weapons/HUD/STFace/STFGod.png
+- Assets/Weapons/Sprites/BFG/BFGFire1.png
+- Assets/Doomguy/Ammo/Bullets/sfBullets.asset
+- Assets/Weapons/HUD/STFace/STFLR.png
+- Assets/Doomguy/Weapons/Chaingun/sfChaingun.asset
+- Assets/Weapons/Sprites/Shotgun/SSGIdle.png
+- Assets/Weapons/Sprites/Rocket/RocketIdle.png
+- Assets/Weapons/HUD/STFace/STFIdle.png
+- Assets/Weapons/Sprites/BFG/BFGFlash2.png
+- Assets/Weapons/Sprites/Chainsaw/SawFire.png
+- Assets/Weapons/Sprites/Plasma/PlasmaFire1.png
+- Assets/Weapons/Sprites/BFG/BFGFire2.png
+- Assets/Weapons/HUD/STFace/STFOuch.png
+- Assets/Doomguy/Weapons/Rocket/sfRocket.asset
+- Assets/Weapons/Sprites/Shotgun/SSGReload1.png
+- Assets/Weapons/Sprites/Shotgun/SSGFlash2.png
+- Assets/Weapons/Sprites/Chainsaw/SawIdle.png
 - Assets/Doomguy/DoomguyBody.prefab
 - Assets/Doomguy/sdDoomguy.asset
+- Assets/Weapons/Sprites/Plasma/PlasmaIdle.png
+- Assets/Weapons/Sprites/Shotgun/SSGFlash1.png
+- Assets/Weapons/Sprites/Rocket/RocketReload.png
+- Assets/Doomguy/Ammo/Rockets/sfRockets.asset
+- Assets/Weapons/Sprites/Plasma/PlasmaFire2.png
+- Assets/Weapons/HUD/STFace/STFBR.png
+- Assets/Weapons/Sprites/Shotgun/SSGReload4.png
+- Assets/Doomguy/Weapons/Chainsaw/sfSaw.asset
+- Assets/Weapons/Sprites/Chainsaw/SawIdle2.png
+- Assets/Weapons/HUD/STFace/STFLL.png
+- Assets/Weapons/Sprites/Shotgun/SSGReload6.png
+- Assets/Weapons/Sprites/BFG/BFGIdle.png
+- Assets/Weapons/HUD/STFace/STFKill.png
+- Assets/Weapons/Sprites/Shotgun/SSGReload5.png
+- Assets/Projectiles/Plasma/PLSSA0.png
+- Assets/Weapons/Sprites/Shotgun/SSGReload2.png
+- Assets/Doomguy/Weapons/BFG/sfBFG.asset
+- Assets/Projectiles/Plasma/PlasmaProjectile.prefab
+- Assets/Weapons/HUD/STFace/STFEvil.png
+- Assets/Doomguy/Ammo/Shells/sfShells.asset
+- Assets/Weapons/Sprites/BFG/BFGFlash1.png
+- Assets/Weapons/Sprites/Chaingun/ChaingunIdle.png
+- Assets/Weapons/Sprites/Shotgun/SSGReload7.png
+- Assets/Doomguy/Ammo/Cells/sfCells.asset
+- Assets/Weapons/Sprites/Chaingun/ChaingunFlash1.png
 Dependencies: []
