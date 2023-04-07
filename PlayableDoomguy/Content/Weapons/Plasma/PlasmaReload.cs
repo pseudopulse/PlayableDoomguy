@@ -3,7 +3,7 @@ using System;
 namespace PlayableDoomguy.Weapons.Plasma {
     public class PlasmaReload : BaseWeaponState {
         public Sprite reloadSprite;
-        public float duration = 0.3f;
+        public float duration = 0.6f;
 
         public override void OnEnter()
         {

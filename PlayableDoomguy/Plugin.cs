@@ -24,6 +24,10 @@ namespace PlayableDoomguy {
         public static GameObject BFGProjectile;
         public static GameObject PlasmaRifleProjectile;
         public static DamageAPI.ModdedDamageType ChainsawType = DamageAPI.ReserveDamageType();
+        // configs
+
+        public static bool CheatCodes;
+        public static bool QuickSwitch;
 
         public void Awake() {
             // assetbundle loading 
@@ -46,18 +50,21 @@ namespace PlayableDoomguy {
             WeaponInfo.Populate();
             HideAmmo.Hook();
 
+            QuickSwitch = Config.Bind<bool>("Configuration", "Quick Switching", false, "Allows for DOOM Eternal style quickswitching.").Value;
+            CheatCodes = Config.Bind<bool>("Configuration", "Cheat Codes", true, "Enables the DOOM 2 cheat codes when playing as Doomguy.").Value;
+
             // ammo drops
             On.RoR2.PurchaseInteraction.OnInteractionBegin += (orig, self, interactor) => {
                 orig(self, interactor);
                 if (interactor.GetComponent<WeaponController>()) {
-                    interactor.GetComponent<WeaponController>().HandleIDKFA();
+                    interactor.GetComponent<WeaponController>().RestoreAmmoFraction(0.5f);
                 }
             };
 
             On.RoR2.SkillLocator.ApplyAmmoPack += (orig, self) => {
                 orig(self);
                 if (self.GetComponent<WeaponController>()) {
-                    self.GetComponent<WeaponController>().RestoreAmmoFraction(0.3f);
+                    self.GetComponent<WeaponController>().RestoreAmmoFraction(0.1f);
                 }
             };  
 
@@ -68,7 +75,7 @@ namespace PlayableDoomguy {
                     WeaponController controller = report.attacker.GetComponent<WeaponController>();
 
                     if (report.victimIsChampion && report.damageInfo.HasModdedDamageType(ChainsawType)) {
-                        controller.RestoreAmmoFraction(0.05f);
+                        controller.RestoreAmmoFraction(0.01f);
                     }
                 }
             };
@@ -126,36 +133,24 @@ namespace PlayableDoomguy {
                 orig(self);
             };
 
-            RecalculateStatsAPI.GetStatCoefficients += (body, args) => {
-                if (body.baseNameToken == "DG_BODY_NAME") {
-                    WeaponController controller = body.GetComponent<WeaponController>();
-
-                    if (!controller) {
-                        return;
+            /*On.RoR2.Projectile.ProjectileManager.InitializeProjectile += (orig, projectile, info) => {
+                orig(projectile, info);
+                if (projectile.name.Contains("GrenadeLauncher") && info.owner && info.owner.name.Contains("Doomguy")) {
+                    TeamFilter filter = projectile.GetComponent<TeamFilter>();
+                    if (filter) {
+                        filter.teamIndex = TeamIndex.Neutral;
+                        filter.teamIndexInternal = (int)TeamIndex.Neutral;
+                        filter.defaultTeam = TeamIndex.Neutral;
                     }
 
-                    int b = body.inventory.GetItemCount(RoR2Content.Items.SecondarySkillMagazine);
-                    int l = body.inventory.GetItemCount(DLC1Content.Items.EquipmentMagazineVoid);
+                    ProjectileImpactExplosion explosion = projectile.GetComponent<ProjectileImpactExplosion>();
+                    if (explosion) {
+                        explosion.bonusBlastForce = Vector3.up * 4000f;
+                    }
 
-                    GenericSkill bullets = controller.GetAmmoSlot(Ammo.Bullets);
-                    GenericSkill shells = controller.GetAmmoSlot(Ammo.Shells);
-                    GenericSkill cells = controller.GetAmmoSlot(Ammo.Cells);
-                    GenericSkill rockets = controller.GetAmmoSlot(Ammo.Rockets);
-
-                    bullets.bonusStockFromBody += (20 * b) + (40 * l);
-                    shells.bonusStockFromBody += (10 * b) + (20 * l);
-                    cells.bonusStockFromBody += (20 * b) + (40 * l);
-                    rockets.bonusStockFromBody += (5 * b) + (10 * l);
-
-                    bullets.RecalculateMaxStock();
-                    shells.RecalculateMaxStock();
-                    cells.RecalculateMaxStock();
-                    rockets.RecalculateMaxStock();
+                    
                 }
-            };
-
-            //
-
+            };*/
 
             BFGProjectile = PrefabAPI.InstantiateClone(Utils.Paths.GameObject.BeamSphere.Load<GameObject>(), "BFGSphere");
             BFGProjectile.GetComponent<ProjectileImpactExplosion>().blastDamageCoefficient = 1f;
@@ -172,6 +167,14 @@ namespace PlayableDoomguy {
 
         public void ModifyAssets() {
             DoomguyBody.AddComponent<WeaponController>();
+
+            DoomguyBody.GetComponent<CharacterBody>().bodyFlags |= CharacterBody.BodyFlags.SprintAnyDirection;
+            DoomguyBody.GetComponent<CharacterBody>()._defaultCrosshairPrefab = Utils.Paths.GameObject.StandardCrosshair.Load<GameObject>();
+
+            if (Config.Bind<bool>("Configuration", "Faster Movespeed", false, "Increases Doomguy's movespeed to be on par with that of DOOM2").Value) {
+                DoomguyBody.GetComponent<CharacterBody>().baseMoveSpeed = 10;
+                DoomguyBody.GetComponent<CharacterBody>().sprintingSpeedMultiplier = 2;
+            }
         }
 
         public void SetupLanguage() {
@@ -205,11 +208,11 @@ namespace PlayableDoomguy {
             "DG_SHOTGUN_NAME".Add("Super Shotgun");
             "DG_SHOTGUN_DESC".Add("Fire 20 pellets for <style=cIsDamage>80% damage</style> each. <style=cIsUtility>Consumes 2 Shells</style>.");
             "DG_CHAINGUN_NAME".Add("Chaingun");
-            "DG_CHAINGUN_DESC".Add("Fire bullets for <style=cIsDamage>200% damage</style>. <style=cIsUtility>Consumes 1 Bullet</style>.");
+            "DG_CHAINGUN_DESC".Add("Fire bullets for <style=cIsDamage>80% damage</style>. <style=cIsUtility>Consumes 1 Bullet</style>.");
             "DG_ROCKET_NAME".Add("Rocket Launcher");
-            "DG_ROCKET_DESC".Add("Launch a rocket for <style=cIsDamage>1200% damage</style>. <style=cIsUtility>Consumes 1 Rocket</style>.");
+            "DG_ROCKET_DESC".Add("Launch a rocket for <style=cIsDamage>900% damage</style>. <style=cIsUtility>Consumes 1 Rocket</style>.");
             "DG_PLASMA_NAME".Add("Plasma Rifle");
-            "DG_PLASMA_DESC".Add("Rapidly fire plasma for <style=cIsDamage>160% damage</style>. <style=cIsUtility>Consumes 1 Cell");
+            "DG_PLASMA_DESC".Add("Rapidly fire plasma for <style=cIsDamage>120% damage</style>. Plasma can <style=cIsDamage>stun</style> targets. <style=cIsUtility>Consumes 1 Cell");
             "DG_BFG_NAME".Add("BFG-9000");
             "DG_BFG_DESC".Add("Launch an orb of destruction for <style=cIsDamage>2000% damage</style> that <style=cIsDamage>arcs 400% damage</style> to nearby targets. <style=cIsUtility>Consumes 40 Cells</style>.");
         }

@@ -39,7 +39,7 @@ namespace PlayableDoomguy.Weapons.Plasma {
                 FireProjectileInfo info = new();
                 info.position = base.transform.position;
                 info.rotation = Util.QuaternionSafeLookRotation(base.inputBank.GetAimRay().direction);
-                info.damage = base.damageStat * 1.6f;
+                info.damage = base.damageStat * 1.2f;
                 info.crit = base.RollCrit();
                 info.owner = base.gameObject;
                 info.projectilePrefab = prefab;

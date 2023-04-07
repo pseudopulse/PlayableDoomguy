@@ -13,7 +13,8 @@ namespace PlayableDoomguy.Weapons.Rocket {
             info.position = base.transform.position;
             info.crit = base.RollCrit();
             info.rotation = Util.QuaternionSafeLookRotation(base.GetAimRay().direction);
-            info.damage = base.damageStat * 12f;
+            info.damage = base.damageStat * 9f;
+            info.force = 2000;
             info.owner = base.gameObject;
             info.projectilePrefab = Utils.Paths.GameObject.ToolbotGrenadeLauncherProjectile.Load<GameObject>();
 

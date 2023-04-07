@@ -23,6 +23,7 @@ namespace PlayableDoomguy.Weapons.SSG {
                 attack.owner = base.gameObject;
                 attack.origin = base.transform.position;
                 attack.procCoefficient = 0.6f;
+                attack.stopperMask = LayerIndex.world.collisionMask;
                 attack.Fire();
             }
 

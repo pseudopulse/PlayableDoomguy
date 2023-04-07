@@ -41,21 +41,19 @@ namespace PlayableDoomguy.Weapons.Chaingun {
             if (base.fixedAge <= 0f) {
                 base.fixedAge = delay;
 
-                for (int i = 0; i < 1; i++) {
-                    BulletAttack attack = new();
-                    attack.damage = base.damageStat * 1f;
-                    attack.falloffModel = BulletAttack.FalloffModel.DefaultBullet;
-                    attack.minSpread = 0;
-                    attack.maxSpread = 1;
-                    attack.tracerEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.tracerEffectPrefab;
-                    attack.aimVector = base.GetAimRay().direction;
-                    attack.isCrit = base.RollCrit();
-                    attack.owner = base.gameObject;
-                    attack.origin = base.transform.position;
-                    attack.procCoefficient = 1f;
-                    attack.Fire();
-                    AkSoundEngine.PostEvent(Events.Play_wPistol, base.gameObject);
-                }
+                BulletAttack attack = new();
+                attack.damage = base.damageStat * 0.8f;
+                attack.falloffModel = BulletAttack.FalloffModel.DefaultBullet;
+                attack.minSpread = 0;
+                attack.maxSpread = 3;
+                attack.tracerEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.tracerEffectPrefab;
+                attack.aimVector = base.GetAimRay().direction;
+                attack.isCrit = base.RollCrit();
+                attack.owner = base.gameObject;
+                attack.origin = base.transform.position;
+                attack.procCoefficient = 1f;
+                attack.Fire();
+                AkSoundEngine.PostEvent(Events.Play_wPistol, base.gameObject);
 
                 ammo.DeductStock(1);
 

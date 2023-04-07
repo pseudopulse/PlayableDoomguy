@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1013311160
+CRC: 542247559
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: cf76b26b44eb6b8ffec371463b6ce7f4
+    Hash: 284fce2a96beaa36905bea130b876878
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 7ad962c2aeebae7480b22fd8ba638158
+    Hash: c03d2ef7da0b56bbbed029c4a9f05c80
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -63,8 +63,6 @@ ClassTypes:
   Script: {fileID: -365436499, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: 1783796254, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
-  Script: {fileID: -1294804675, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -202159943, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -163,6 +161,7 @@ Assets:
 - Assets/Weapons/Sprites/BFG/BFGIdle.png
 - Assets/Weapons/HUD/STFace/STFKill.png
 - Assets/Weapons/Sprites/Shotgun/SSGReload5.png
+- Assets/Doomguy/Ammo/Rockets/sdRocket.asset
 - Assets/Projectiles/Plasma/PLSSA0.png
 - Assets/Weapons/Sprites/Shotgun/SSGReload2.png
 - Assets/Doomguy/Weapons/BFG/sfBFG.asset

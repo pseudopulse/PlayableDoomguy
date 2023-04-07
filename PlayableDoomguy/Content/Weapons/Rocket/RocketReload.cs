@@ -3,7 +3,7 @@ using System;
 namespace PlayableDoomguy.Weapons.Rocket {
     public class RocketReload : BaseWeaponState {
         public Sprite reloadSprite;
-        public float duration = 1.3f;
+        public float duration = 1f;
 
         public override void OnEnter()
         {

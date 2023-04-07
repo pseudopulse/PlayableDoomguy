@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System;
 using UnityEngine.UI;
+using RoR2.UI;
 
 namespace PlayableDoomguy.Components {
     public class WeaponController : MonoBehaviour {
@@ -14,24 +15,45 @@ namespace PlayableDoomguy.Components {
         private InputBankTest input;
         private SkillLocator locator;
         private string currentCheat = "";
-
+        private CameraRigController cam;
+        private CharacterBody body;
 
         public void Start() {
-            WeaponDisplayInstance = GameObject.Instantiate(WeaponDisplayPrefab, base.transform);
-            WeaponSprite = WeaponDisplayInstance.transform.Find("Weapon").GetComponent<Image>();
-            FlashSprite = WeaponDisplayInstance.transform.Find("Flash").GetComponent<Image>();
+            body = GetComponent<CharacterBody>();
             input = GetComponent<InputBankTest>();
             esm = EntityStateMachine.FindByCustomName(base.gameObject, "Gun");
             locator = GetComponent<SkillLocator>();
+
+
+            Invoke(nameof(SetupHUD), 0.2f); // unity technologies !!!
+            // the authority check will always fail at Start()
+        }
+
+        public void SetupHUD() {
+            if (!body.hasAuthority) {
+                return;
+            }
+            WeaponDisplayInstance = GameObject.Instantiate(WeaponDisplayPrefab, cam?.hud?.transform ?? base.transform);
+            WeaponSprite = WeaponDisplayInstance.transform.Find("Weapon").GetComponent<Image>();
+            FlashSprite = WeaponDisplayInstance.transform.Find("Flash").GetComponent<Image>();
             SwitchWeapon(Weapon.SSG, true);
 
             StatusBarFace stf = base.gameObject.AddComponent<StatusBarFace>();
             stf.image = WeaponDisplayInstance.transform.Find("STFace").GetComponent<Image>();
+
+            if (cam?.hud) {
+                cam.hud.canvas.sortingOrder = 2; // put the hud above the weapon display
+            }
         }
 
         public void Fire() {
             if (!esm.state.GetType().IsEquivalentTo(CurrentWeaponDef.IdleState)) {
-                return;
+                if (esm.state.GetType().IsEquivalentTo(CurrentWeaponDef.ReloadState) && CurrentWeapon == Weapon.Plasma) {
+
+                }
+                else {
+                    return;
+                }
             }
 
             if (!CanAfford()) {
@@ -39,11 +61,15 @@ namespace PlayableDoomguy.Components {
             }
             
             SetToFire();
+
+            body.OnSkillActivated(locator.primary);
         }
 
         public void SwitchWeapon(Weapon newWeapon, bool force = false) {
             if (!force && !esm.state.GetType().IsEquivalentTo(CurrentWeaponDef.IdleState)) {
-                return;
+                if (!Plugin.QuickSwitch && CurrentWeapon != Weapon.Plasma) { // plasma rifle recoil frames dont count as reloads
+                    return;
+                }
             }
 
             if (!CanAfford(newWeapon)) {
@@ -52,6 +78,7 @@ namespace PlayableDoomguy.Components {
 
             CurrentWeapon = newWeapon;
             CurrentWeaponDef = WeaponInfo.WeaponToDef[CurrentWeapon];
+            FlashSprite.enabled = false;
             UpdateFlash();
             UpdateSpritePos();
             SetToIdle();
@@ -76,50 +103,55 @@ namespace PlayableDoomguy.Components {
             esm.SetNextState(state);
         }
 
-        public void FixedUpdate() {
+        public void Update() {
+            if (!body.hasAuthority || !WeaponDisplayInstance) {
+                return;
+            }
             // check inputs
             if (input.skill1.down) {
                 Fire();
             }
 
-            // idkfa
-            if (currentCheat.Contains("idkfa")) {
-                currentCheat = "";
-                HandleIDKFA();
-                Chat.AddMessage("<style=cIsDamage>Very happy ammo added.</style>");
-            }
-
-            // iddqd
-            if (currentCheat.Contains("iddqd")) {
-                currentCheat = "";
-                CharacterBody body = GetComponent<CharacterBody>();
-                if (body.HasBuff(RoR2Content.Buffs.Immune)) {
-                    body.RemoveBuff(RoR2Content.Buffs.Immune);
-                    Chat.AddMessage("<style=cIsDamage>Degreelessness Mode Off</style>.");
+            if (Plugin.CheatCodes) {
+                // idkfa
+                if (currentCheat.Contains("idkfa")) {
+                    currentCheat = "";
+                    HandleIDKFA();
+                    Chat.AddMessage("<style=cIsDamage>Very happy ammo added.</style>");
                 }
-                else {
-                    body.AddBuff(RoR2Content.Buffs.Immune);
-                    Chat.AddMessage("<style=cIsDamage>Degreelessness Mode On</style>.");
+
+                // iddqd
+                if (currentCheat.Contains("iddqd")) {
+                    currentCheat = "";
+                    CharacterBody body = GetComponent<CharacterBody>();
+                    if (body.HasBuff(RoR2Content.Buffs.Immune)) {
+                        body.RemoveBuff(RoR2Content.Buffs.Immune);
+                        Chat.AddMessage("<style=cIsDamage>Degreelessness Mode Off</style>.");
+                    }
+                    else {
+                        body.AddBuff(RoR2Content.Buffs.Immune);
+                        Chat.AddMessage("<style=cIsDamage>Degreelessness Mode On</style>.");
+                    }
                 }
-            }
 
-            // iddt
-            if (currentCheat.Contains("iddt")) {
-                currentCheat = "";
-                EquipmentSlot slot = GetComponent<EquipmentSlot>();
-                slot.FireScanner();
-            }
+                // iddt
+                if (currentCheat.Contains("iddt")) {
+                    currentCheat = "";
+                    EquipmentSlot slot = GetComponent<EquipmentSlot>();
+                    slot.FireScanner();
+                }
 
-            // idchoppers
-            if (currentCheat.Contains("idchoppers")) {
-                currentCheat = "";
-                CharacterBody body = GetComponent<CharacterBody>();
-                SwitchWeapon(Weapon.Saw, true);
-                body.AddTimedBuff(RoR2Content.Buffs.Immune, 0.0016f);
-                Chat.AddMessage("... doesn't suck - GM");
-            }
+                // idchoppers
+                if (currentCheat.Contains("idchoppers")) {
+                    currentCheat = "";
+                    CharacterBody body = GetComponent<CharacterBody>();
+                    SwitchWeapon(Weapon.Saw, true);
+                    body.AddTimedBuff(RoR2Content.Buffs.Immune, 0.0016f);
+                    Chat.AddMessage("<style=cIsDamage>... doesn't suck - GM</style>");
+                }
 
-            currentCheat += Input.inputString;
+                currentCheat += Input.inputString;
+            }
 
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
                 SwitchWeapon(Weapon.Saw);
@@ -149,6 +181,19 @@ namespace PlayableDoomguy.Components {
             if (Input.GetKeyDown(KeyCode.Alpha6)) {
                 SwitchWeapon(Weapon.BFG);
                 return;
+            }
+
+            // hud
+            if (!cam) {
+                cam = LocalUserManager.GetFirstLocalUser()?._cameraRigController ?? null;
+                return;
+            }
+
+            if (cam && !cam.isHudAllowed) {
+                WeaponDisplayInstance.SetActive(false);
+            }
+            else {
+                WeaponDisplayInstance.SetActive(true);
             }
         }
 
@@ -182,6 +227,9 @@ namespace PlayableDoomguy.Components {
         }
 
         public void HandleDeath() {
+            if (!body.hasAuthority) {
+                return;
+            }
             WeaponDisplayInstance.SetActive(false);
         }
 
@@ -241,50 +289,56 @@ namespace PlayableDoomguy.Components {
         }
 
         public void UpdateSpritePos() {
+            if (!body.hasAuthority) {
+                return;
+            }
             RectTransform rect = WeaponSprite.GetComponent<RectTransform>();
 
             switch (CurrentWeapon) {
                 case Weapon.SSG:
-                    rect.anchoredPosition = new(6f, 109.48f);
+                    rect.anchoredPosition = new(4f, 109.48f);
                     rect.sizeDelta = new(308.1886f, 218.9649f);
                     break;
                 case Weapon.BFG:
-                    rect.anchoredPosition = new(6f, 74f);
+                    rect.anchoredPosition = new(4f, 74f);
                     rect.sizeDelta = new(308.1886f, 218.9649f);
                     break;
                 case Weapon.Chaingun:
-                    rect.anchoredPosition = new(6f, 109.48f);
+                    rect.anchoredPosition = new(4f, 109.48f);
                     rect.sizeDelta = new(308.1886f, 218.9649f);
                     break;
                 case Weapon.Plasma:
-                    rect.anchoredPosition = new(-5.2452f, 109f);
+                    rect.anchoredPosition = new(-3.2452f, 109f);
                     rect.sizeDelta = new(289.7734f, 229.3235f);
                     break;
                 case Weapon.Rocket:
-                    rect.anchoredPosition = new(-5.2452f, 109f);
+                    rect.anchoredPosition = new(-3.2452f, 109f);
                     rect.sizeDelta = new(289.7734f, 229.3235f);
                     break;
                 case Weapon.Saw:
-                    rect.anchoredPosition = new(1.4305f, 75f);
+                    rect.anchoredPosition = new(-1.4305f, 75f);
                     rect.sizeDelta = new(417.5289f, 301.8334f);
                     break;
             }
         }
 
         public void UpdateFlash() {
+            if (!body.hasAuthority) {
+                return;
+            }
             RectTransform rect = FlashSprite.GetComponent<RectTransform>();
 
             switch (CurrentWeapon) {
                 case Weapon.SSG:
-                    rect.anchoredPosition = new(6, 240f);
+                    rect.anchoredPosition = new(4, 240f);
                     rect.sizeDelta = new(212.3218f, 151.8875f);
                     break;
                 case Weapon.Chaingun:
-                    rect.anchoredPosition = new(11.2f, 213f);
+                    rect.anchoredPosition = new(9.2f, 213f);
                     rect.sizeDelta = new(328.6252f, 114.0049f);
                     break;
                 case Weapon.BFG:
-                    rect.anchoredPosition = new(6f, 143f);
+                    rect.anchoredPosition = new(4f, 143f);
                     rect.sizeDelta = new(128.2542f, 105.9482f);
                     break;
                 default:
