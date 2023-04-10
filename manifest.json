@@ -1,6 +1,6 @@
 {
 	"name": "PlayableDoomguy",
-	"version_number": "1.1.0",
+	"version_number": "1.1.1",
 	"website_url": "https://github.com/pseudopulse/PlayableDoomguy",
 	"description": "Ever wanted to play DOOM but didnt want to close RoR2? No? Well now you can!",
 	"dependencies": [

@@ -13,7 +13,7 @@ namespace PlayableDoomguy {
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "pseudopulse";
         public const string PluginName = "PlayableDoomguy";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.1.1";
 
         public static AssetBundle bundle;
         public static BepInEx.Logging.ManualLogSource ModLogger;

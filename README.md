@@ -7,6 +7,8 @@ Adds the Doomguy as a survivor! Complete with (almost) the entire DOOM 2 arsenal
 Note - this probably doesnt work in multiplayer
 
 # Changelog
+## 1.1.1
+- reverted camera change from 1.1.0
 ## 1.1.0
 - moved inputs to Update to improve responsiveness
 - added config for allowing quickswitching
