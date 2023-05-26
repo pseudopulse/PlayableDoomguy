@@ -17,6 +17,8 @@ namespace PlayableDoomguy.Weapons.Plasma {
             fire2 = Plugin.bundle.LoadAsset<Sprite>("PlasmaFire2.png");
             ammo = controller.GetAmmoSlot();
             delay /= base.attackSpeedStat;
+
+            AudioSource.clip = AudioCollection.FetchClipByName("PLRFire");
         }
 
         public override void FixedUpdate()
@@ -52,6 +54,8 @@ namespace PlayableDoomguy.Weapons.Plasma {
                 AkSoundEngine.PostEvent(Events.Play_mage_m2_charge, base.gameObject);
                 ammo.DeductStock(1);
                 shots++;
+                
+                AudioSource.Play();
             }
         }
     }

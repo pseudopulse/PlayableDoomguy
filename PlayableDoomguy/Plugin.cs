@@ -13,7 +13,7 @@ namespace PlayableDoomguy {
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "pseudopulse";
         public const string PluginName = "PlayableDoomguy";
-        public const string PluginVersion = "1.1.1";
+        public const string PluginVersion = "1.2.0";
 
         public static AssetBundle bundle;
         public static BepInEx.Logging.ManualLogSource ModLogger;
@@ -24,14 +24,20 @@ namespace PlayableDoomguy {
         public static GameObject BFGProjectile;
         public static GameObject PlasmaRifleProjectile;
         public static DamageAPI.ModdedDamageType ChainsawType = DamageAPI.ReserveDamageType();
+        public static AudioCollection AudioCollection;
         // configs
 
         public static bool CheatCodes;
         public static bool QuickSwitch;
+        public static bool StatusBar;
+        public static bool UseClassicKeybinds;
+        public static bool BypassChainsawCheck;
 
         public void Awake() {
             // assetbundle loading 
             bundle = AssetBundle.LoadFromFile(Assembly.GetExecutingAssembly().Location.Replace("PlayableDoomguy.dll", "doombundle"));
+
+            AudioCollection = Plugin.bundle.LoadAsset<AudioCollection>("WeaponSounds.asset");
 
             // set logger
             ModLogger = Logger;
@@ -52,6 +58,11 @@ namespace PlayableDoomguy {
 
             QuickSwitch = Config.Bind<bool>("Configuration", "Quick Switching", false, "Allows for DOOM Eternal style quickswitching.").Value;
             CheatCodes = Config.Bind<bool>("Configuration", "Cheat Codes", true, "Enables the DOOM 2 cheat codes when playing as Doomguy.").Value;
+            // StatusBar = Config.Bind<bool>("Configuration", "Status Bar", true, "Replace the standard HUD with the DOOM status bar.").Value;
+            StatusBar = false; // disabled for now
+            BypassChainsawCheck = Config.Bind<bool>("Configuration", "Chainsaw Ammo Restore", false, "Allows the Chainsaw to restore ammo on any hit instead of just bosses. For use with Simulacrum of Artifact of Sacrifice.").Value;
+            UseClassicKeybinds = Config.Bind<bool>("Configuration", "Classic Keybinds", false, "Shifts keyinds over by +1 to match that of doom").Value;
+            // STBarTextManager.Init();
 
             // ammo drops
             On.RoR2.PurchaseInteraction.OnInteractionBegin += (orig, self, interactor) => {
@@ -73,8 +84,8 @@ namespace PlayableDoomguy {
                 orig(report);
                 if (report.attacker) {
                     WeaponController controller = report.attacker.GetComponent<WeaponController>();
-
-                    if (report.victimIsChampion && report.damageInfo.HasModdedDamageType(ChainsawType)) {
+                    bool isValid = BypassChainsawCheck || report.victimIsChampion;
+                    if (isValid && report.damageInfo.HasModdedDamageType(ChainsawType)) {
                         controller.RestoreAmmoFraction(0.01f);
                     }
                 }
@@ -152,10 +163,10 @@ namespace PlayableDoomguy {
                 }
             };*/
 
-            BFGProjectile = PrefabAPI.InstantiateClone(Utils.Paths.GameObject.BeamSphere.Load<GameObject>(), "BFGSphere");
-            BFGProjectile.GetComponent<ProjectileImpactExplosion>().blastDamageCoefficient = 1f;
-            BFGProjectile.GetComponent<ProjectileProximityBeamController>().damageCoefficient = 0.2f;
-
+            BFGProjectile = bundle.LoadAsset<GameObject>("BFGProjectile.prefab");
+            ContentAddition.AddProjectile(BFGProjectile);
+            GameObject effect = bundle.LoadAsset<GameObject>("BFGEffect.prefab");
+            ContentAddition.AddEffect(effect);
             PlasmaRifleProjectile = Plugin.bundle.LoadAsset<GameObject>("PlasmaProjectile.prefab");
             PlasmaRifleProjectile.AddComponent<PlasmaSpriteHandler>();
         }

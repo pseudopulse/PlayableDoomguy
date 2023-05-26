@@ -4,9 +4,17 @@ Adds the Doomguy as a survivor! Complete with (almost) the entire DOOM 2 arsenal
 ![Doomguy in the character select screen](https://cdn.discordapp.com/attachments/959133036815978498/1093610542456897647/015741-screenshot.png)
 ![Invulnerable Doomguy with a chainsaw infront of a pile of Backup Magazines](https://cdn.discordapp.com/attachments/567832879879553037/1093602451065671792/012525-screenshot.png)
 
-Note - this probably doesnt work in multiplayer
+Note - this doesnt work in multiplayer
 
 # Changelog
+## 1.2.0
+- weapons now have proper sound effects (requires a restart due to using audioenginefix)
+- bfg now works like it did in the original doom
+- config to shift weapon keybinds over by 1 to match the keybinds in doom
+- config to disable boss check for chainsaw ammo restore (for use with simulacrum and artifact of sacrifice)
+## 1.1.2
+- re-fixed the vfx bug
+- guh
 ## 1.1.1
 - reverted camera change from 1.1.0
 ## 1.1.0

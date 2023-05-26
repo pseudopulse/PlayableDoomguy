@@ -21,6 +21,9 @@ namespace PlayableDoomguy.Weapons.Rocket {
             ProjectileManager.instance.FireProjectile(info);
             AkSoundEngine.PostEvent(Events.Play_MULT_m1_grenade_launcher_shoot, base.gameObject);
             controller.SetToReload();
+
+            AudioSource.clip = AudioCollection.FetchClipByName("RLFire");
+            AudioSource.Play();
         }
     }
 }

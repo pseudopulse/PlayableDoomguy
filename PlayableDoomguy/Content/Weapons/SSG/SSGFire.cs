@@ -31,6 +31,9 @@ namespace PlayableDoomguy.Weapons.SSG {
             ammo.DeductStock(2);
 
             AkSoundEngine.PostEvent(Events.Play_captain_m1_shotgun_shootTight, base.gameObject);
+
+            AudioSource.clip = AudioCollection.FetchClipByName("SSGFire");
+            AudioSource.Play();
         }
 
         public override void FixedUpdate()

@@ -33,6 +33,11 @@ namespace PlayableDoomguy.Components {
             IDLE = Plugin.bundle.LoadAsset<Sprite>("STFIdle.png");
             blSprs = new Sprite[3] { BL, IDLE, BR };
             body = GetComponent<CharacterBody>();
+
+            RectTransform rect = image.GetComponent<RectTransform>();
+            if (Plugin.StatusBar) {
+                rect.anchoredPosition = new(-668, 51); // move face over to the status bar position
+            }
         }
 
         public void FixedUpdate() {

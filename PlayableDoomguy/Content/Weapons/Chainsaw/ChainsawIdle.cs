@@ -12,6 +12,9 @@ namespace PlayableDoomguy.Weapons.Chainsaw {
             base.OnEnter();
             idle1 = Plugin.bundle.LoadAsset<Sprite>("SawIdle.png");
             idle2 = Plugin.bundle.LoadAsset<Sprite>("SawIdle2.png");
+            AudioSource.clip = AudioCollection.FetchClipByName("CSIdle");
+            AudioSource.loop = true;
+            AudioSource.Play();
         }
 
         public override void FixedUpdate()

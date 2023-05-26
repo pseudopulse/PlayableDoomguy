@@ -15,6 +15,10 @@ namespace PlayableDoomguy.Weapons.Chainsaw {
             hitbox = FindHitBoxGroup("Chainsaw");
             AkSoundEngine.PostEvent(Events.Play_MULT_m1_sawblade_start, base.gameObject);
             delay /= base.attackSpeedStat;
+
+            AudioSource.clip = AudioCollection.FetchClipByName("CSRev");
+            AudioSource.loop = true;
+            AudioSource.Play();
         }
 
         public override void FixedUpdate()
@@ -23,6 +27,7 @@ namespace PlayableDoomguy.Weapons.Chainsaw {
 
             if (!inputBank.skill1.down) {
                 AkSoundEngine.PostEvent(Events.Play_MULT_m1_sawblade_stop, base.gameObject);
+                AudioSource.loop = false;
                 controller.SetToIdle();
                 return;
             }

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2372299723
+CRC: 2440976168
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7c797454910e9f34bec1236416e3f8dd
+    Hash: 3e7af359265bc849430be6dfd993e990
   TypeTreeHash:
     serializedVersion: 2
-    Hash: c03d2ef7da0b56bbbed029c4a9f05c80
+    Hash: d1b58cc5b45339ca61d89778b2bc26e9
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -29,16 +29,50 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 65
   Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 372142912, guid: d382a022563c7517aadbc92ca1060016, type: 3}
 - Class: 114
   Script: {fileID: 1790887305, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: 678291247, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
-  Script: {fileID: 372142912, guid: d382a022563c7517aadbc92ca1060016, type: 3}
+  Script: {fileID: 1825355463, guid: f63537068ba18fa23ab794e3d1027936, type: 3}
+- Class: 114
+  Script: {fileID: 1143142494, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 298587437, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 1783796254, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 1297580292, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 1144835783, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 1530905962, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 1918207524, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 306635731, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 1512185436, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+- Class: 114
+  Script: {fileID: 709836956, guid: f63537068ba18fa23ab794e3d1027936, type: 3}
+- Class: 114
+  Script: {fileID: -1054742002, guid: f63537068ba18fa23ab794e3d1027936, type: 3}
+- Class: 114
+  Script: {fileID: -1267802714, guid: f63537068ba18fa23ab794e3d1027936, type: 3}
+- Class: 114
+  Script: {fileID: -320429031, guid: f63537068ba18fa23ab794e3d1027936, type: 3}
+- Class: 114
+  Script: {fileID: -91403341, guid: f63537068ba18fa23ab794e3d1027936, type: 3}
 - Class: 114
   Script: {fileID: -1067940895, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -50,19 +84,9 @@ ClassTypes:
 - Class: 114
   Script: {fileID: -1077198318, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
-  Script: {fileID: 1143142494, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
-  Script: {fileID: 1530905962, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
-  Script: {fileID: 1297580292, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
-  Script: {fileID: 1144835783, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
-  Script: {fileID: 298587437, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+  Script: {fileID: 511512695, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -365436499, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
-  Script: {fileID: 1783796254, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -202159943, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -72,15 +96,13 @@ ClassTypes:
 - Class: 114
   Script: {fileID: -359660931, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
-  Script: {fileID: 1512185436, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
   Script: {fileID: -1888550019, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1699741063, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
-  Script: {fileID: 1918207524, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
   Script: {fileID: -1848696948, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 353067543, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -317677761, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -91,8 +113,6 @@ ClassTypes:
   Script: {fileID: 1391837873, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1627637702, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
-  Script: {fileID: 306635731, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1881990681, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -119,6 +139,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Projectiles/BFG/BFGGhost.prefab
 - Assets/Doomguy/Weapons/Shotgun/sfShotgun.asset
 - Assets/Projectiles/Plasma/PLSSB0.png
 - Assets/Weapons/Sprites/Shotgun/SSGReload3.png
@@ -126,30 +147,41 @@ Assets:
 - Assets/Weapons/HUD/STFace/STFBL.png
 - Assets/Weapons/Sprites/Chaingun/ChaingunFlash2.png
 - Assets/Doomguy/Weapons/Plasma/sfPlasma.asset
+- Assets/Weapons/WeaponSounds.asset
 - Assets/Weapons/Sprites/Chaingun/ChaingunFire.png
 - Assets/Weapons/HUD/WeaponDisplay.prefab
 - Assets/Weapons/HUD/STFace/STFGod.png
 - Assets/Weapons/Sprites/BFG/BFGFire1.png
 - Assets/Doomguy/Ammo/Bullets/sfBullets.asset
 - Assets/Weapons/HUD/STFace/STFLR.png
+- Assets/Weapons/HUD/STBar/Font/STTNUM7.png
 - Assets/Doomguy/Weapons/Chaingun/sfChaingun.asset
+- Assets/Weapons/HUD/STBar/Font/STTNUM3.png
 - Assets/Weapons/Sprites/Shotgun/SSGIdle.png
+- Assets/Weapons/HUD/STBar/Font/STTNUM4.png
 - Assets/Weapons/Sprites/Rocket/RocketIdle.png
+- Assets/Projectiles/BFG/BFGEffect.prefab
+- Assets/Weapons/HUD/STBar/Font/STTNUM8.png
 - Assets/Weapons/HUD/STFace/STFIdle.png
 - Assets/Weapons/Sprites/BFG/BFGFlash2.png
 - Assets/Weapons/Sprites/Chainsaw/SawFire.png
+- Assets/Weapons/HUD/STBar/Font/STTNUM9.png
 - Assets/Weapons/Sprites/Plasma/PlasmaFire1.png
 - Assets/Weapons/Sprites/BFG/BFGFire2.png
 - Assets/Weapons/HUD/STFace/STFOuch.png
 - Assets/Doomguy/Weapons/Rocket/sfRocket.asset
+- Assets/Weapons/HUD/STBar/Font/STTNUM0.png
+- Assets/Weapons/HUD/STBar/Font/STTNUM2.png
 - Assets/Weapons/Sprites/Shotgun/SSGReload1.png
 - Assets/Weapons/Sprites/Shotgun/SSGFlash2.png
+- Assets/Weapons/HUD/STBar/Font/STTNUM1.png
 - Assets/Weapons/Sprites/Chainsaw/SawIdle.png
 - Assets/Doomguy/DoomguyBody.prefab
 - Assets/Doomguy/sdDoomguy.asset
 - Assets/Weapons/Sprites/Plasma/PlasmaIdle.png
 - Assets/Weapons/Sprites/Shotgun/SSGFlash1.png
 - Assets/Weapons/Sprites/Rocket/RocketReload.png
+- Assets/Projectiles/BFG/BFGProjectile.prefab
 - Assets/Doomguy/Ammo/Rockets/sfRockets.asset
 - Assets/Weapons/Sprites/Plasma/PlasmaFire2.png
 - Assets/Weapons/HUD/STFace/STFBR.png
@@ -164,7 +196,9 @@ Assets:
 - Assets/Doomguy/Ammo/Rockets/sdRocket.asset
 - Assets/Projectiles/Plasma/PLSSA0.png
 - Assets/Weapons/Sprites/Shotgun/SSGReload2.png
+- Assets/Weapons/HUD/STBar/Font/STTNUM5.png
 - Assets/Doomguy/Weapons/BFG/sfBFG.asset
+- Assets/Weapons/HUD/STBar/Font/STTPRCNT.png
 - Assets/Projectiles/Plasma/PlasmaProjectile.prefab
 - Assets/Weapons/HUD/STFace/STFEvil.png
 - Assets/Doomguy/Ammo/Shells/sfShells.asset

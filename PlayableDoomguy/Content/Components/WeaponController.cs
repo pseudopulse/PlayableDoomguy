@@ -17,12 +17,14 @@ namespace PlayableDoomguy.Components {
         private string currentCheat = "";
         private CameraRigController cam;
         private CharacterBody body;
+        private AudioSource source;
 
         public void Start() {
             body = GetComponent<CharacterBody>();
             input = GetComponent<InputBankTest>();
             esm = EntityStateMachine.FindByCustomName(base.gameObject, "Gun");
             locator = GetComponent<SkillLocator>();
+            source = GetComponent<AudioSource>();
 
 
             Invoke(nameof(SetupHUD), 0.2f); // unity technologies !!!
@@ -41,6 +43,9 @@ namespace PlayableDoomguy.Components {
             StatusBarFace stf = base.gameObject.AddComponent<StatusBarFace>();
             stf.image = WeaponDisplayInstance.transform.Find("STFace").GetComponent<Image>();
 
+            /*STBar bar = WeaponDisplayInstance.transform.Find("STBar").GetComponent<STBar>();
+            bar.Initialize(body, this);
+            */
             if (cam?.hud) {
                 cam.hud.canvas.sortingOrder = 2; // put the hud above the weapon display
             }
@@ -49,10 +54,10 @@ namespace PlayableDoomguy.Components {
         public void Fire() {
             if (!esm.state.GetType().IsEquivalentTo(CurrentWeaponDef.IdleState)) {
                 if (esm.state.GetType().IsEquivalentTo(CurrentWeaponDef.ReloadState) && CurrentWeapon == Weapon.Plasma) {
-
+                    // plasma rifle has a "fake" reload and can be interrupted at any point
                 }
                 else {
-                    return;
+                    return; // weapon currently firing or reloading, reject input
                 }
             }
 
@@ -75,6 +80,8 @@ namespace PlayableDoomguy.Components {
             if (!CanAfford(newWeapon)) {
                 return;
             }
+
+            source.loop = false;
 
             CurrentWeapon = newWeapon;
             CurrentWeaponDef = WeaponInfo.WeaponToDef[CurrentWeapon];
@@ -158,27 +165,30 @@ namespace PlayableDoomguy.Components {
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            // casting like this is awful but i couldn't thing of a better way
+            // (cast shifts inputs over by 1 to match the classic doom keybinds, which are 1 off here due to lack of pistol)
+
+            if (Input.GetKeyDown((KeyCode)((int)(KeyCode.Alpha2) + (Plugin.UseClassicKeybinds ? 1 : 0)))) {
                 SwitchWeapon(Weapon.SSG);
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            if (Input.GetKeyDown((KeyCode)((int)(KeyCode.Alpha3) + (Plugin.UseClassicKeybinds ? 1 : 0)))) {
                 SwitchWeapon(Weapon.Chaingun);
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            if (Input.GetKeyDown((KeyCode)((int)(KeyCode.Alpha4) + (Plugin.UseClassicKeybinds ? 1 : 0)))) {
                 SwitchWeapon(Weapon.Rocket);
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha5)) {
+            if (Input.GetKeyDown((KeyCode)((int)(KeyCode.Alpha5) + (Plugin.UseClassicKeybinds ? 1 : 0)))) {
                 SwitchWeapon(Weapon.Plasma);
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha6)) {
+            if (Input.GetKeyDown((KeyCode)((int)(KeyCode.Alpha6) + (Plugin.UseClassicKeybinds ? 1 : 0)))) {
                 SwitchWeapon(Weapon.BFG);
                 return;
             }
@@ -320,6 +330,10 @@ namespace PlayableDoomguy.Components {
                     rect.sizeDelta = new(417.5289f, 301.8334f);
                     break;
             }
+
+            if (Plugin.StatusBar) {
+                rect.anchoredPosition = new(rect.anchoredPosition.x, rect.anchoredPosition.y + 90); // shift up 90 to account for stbar
+            }
         }
 
         public void UpdateFlash() {
@@ -343,6 +357,10 @@ namespace PlayableDoomguy.Components {
                     break;
                 default:
                     break;
+            }
+
+            if (Plugin.StatusBar) {
+                rect.anchoredPosition = new(rect.anchoredPosition.x, rect.anchoredPosition.y + 90); // shift up 90 to account for stbar
             }
         }
     }

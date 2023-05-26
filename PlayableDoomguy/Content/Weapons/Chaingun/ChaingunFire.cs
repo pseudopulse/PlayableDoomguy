@@ -22,6 +22,7 @@ namespace PlayableDoomguy.Weapons.Chaingun {
             controller.FlashSprite.enabled = true;
             ammo = controller.GetAmmoSlot();
             delay /= base.attackSpeedStat;
+            AudioSource.clip = Plugin.AudioCollection.FetchClipByName("CGFire");
         }
 
         public override void FixedUpdate()
@@ -53,7 +54,8 @@ namespace PlayableDoomguy.Weapons.Chaingun {
                 attack.origin = base.transform.position;
                 attack.procCoefficient = 1f;
                 attack.Fire();
-                AkSoundEngine.PostEvent(Events.Play_wPistol, base.gameObject);
+                
+                AudioSource.Play();
 
                 ammo.DeductStock(1);
 

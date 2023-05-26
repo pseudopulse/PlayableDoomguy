@@ -17,6 +17,9 @@ namespace PlayableDoomguy.Weapons.BFG {
             flash1 = Plugin.bundle.LoadAsset<Sprite>("BFGFlash1.png");
             flash2 = Plugin.bundle.LoadAsset<Sprite>("BFGFlash2.png");
             controller.FlashSprite.enabled = true;
+
+            AudioSource.clip = AudioCollection.FetchClipByName("BFGFire");
+            AudioSource.Play();
         }
 
         public override void FixedUpdate()
